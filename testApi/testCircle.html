@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.0.0/d3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.0.0/d3.min.js"></script>
+
+  </head>
+
+<body>
+	<div id='grid-container'>
+		<div id='grid-chart'></div>
+	</div>
+</body>
+<script>
+
+
+function middleItem(arr) {
+  if (!arr.length)
+    return;
+    
+  const mid = arr.length / 2;
+  if (arr.length % 2 === 1) {
+    return arr[Math.floor(mid)];
+  } else {
+    return [
+      arr[mid - 1],
+      arr[mid],
+    ];
+  }
+}
+
+
+
+var drawGraph = function(){
+    
+    
+    
+    let num = 472547;
+    let factors =[];
+    
+    for(let i = 1; i <= num; i++) {
+
+    // check if number is a factor
+    if(num % i == 0) {
+        factors.push(i)
+    }
+}
+console.log(middleItem(factors))
+
+
+	//number of circles to color in to visualize percent
+	var percentNumber = 0.00021162;
+
+	//variables for the font family, and some colors
+	var fontFamily = "helvetica";
+	var twitterFill = "#4D908E";
+	var twitterFillActive = "#adf7b6";
+	var svgBackgroundColor = '#264653';
+
+	//width and height of the SVG
+	const width = window.innerWidth;
+	const height = window.innerHeight;
+
+	//create an svg with width and height
+	var svg = d3.select('#grid-chart')
+		.append('svg')
+		.attr("width", width)
+		.attr("height", height)
+    	.style('background-color', svgBackgroundColor);
+    	
+	//10 rows and 10 columns 
+	// var numRows = middleItem(factors)[0];
+	// var numCols = middleItem(factors)[1];
+	var numRows = 10;
+	var numCols = 10;
+	//x and y axis scales
+	var y = d3.scaleBand()
+		.range([0,800])
+		.domain(d3.range(numRows));
+
+	var x = d3.scaleBand()
+		.range([0, 800])
+		.domain(d3.range(numCols));
+
+	//the data is just an array of numbers for each cell in the grid
+	var data = d3.range(numCols*numRows);
+
+	//container to hold the grid
+	var container = svg.append("g")
+		.attr("transform", "translate(500,400)");
+	
+
+	container.selectAll("rect")
+			.data(data)
+			.enter().append("rect")
+			.attr("class","square")
+			.attr('x', function(d){return x(d%numCols);})
+			.attr('y', function(d){return y(Math.floor(d/numCols));})
+			.attr("width", 20)
+			.attr("height", 20)
+// 			.attr('r', 1)
+			.attr('fill', function(d){return d < percentNumber ? twitterFillActive : twitterFill;})
+			.style('stroke', 'black');
+
+}
+
+	//call function to draw the graph
+	drawGraph();
+
+</script>
+</html>

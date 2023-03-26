@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
+<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
+<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+   
+ 
+   
+    </head>
+    <style>
+        
+        body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #00043c;
+  color: #fff;
+  font: normal 600 10vw/1.5 Kanit, sans-serif;
+}
+
+.splitting .char {
+  animation: slide-in 5s cubic-bezier(1, 0, 0, 1) infinite;
+  animation-delay: calc(60ms * var(--char-index));
+}
+
+@keyframes slide-in {
+  from {
+    letter-spacing: 16px;
+    transform: translate(6em, calc(50vh + 50%)) scale(0);
+    opacity: 0;
+  }
+  50% {
+    letter-spacing: 0px;
+    transform: translateX(0em) scale(1);
+    opacity: 1;
+  }
+  to {
+    letter-spacing: 16px;
+    /*transform: translate(-6em, calc(50vh + 50%)) scale(0);*/
+    opacity: 0;
+  }
+}
+
+
+        
+        
+        
+        
+    </style>
+    <body> 
+        <div id ='target'>Splitting words</div>
+
+    </body>
+    <script>
+    
+    // reference : https://codepen.io/mrwillcom/pen/XWdjVRg 
+        // Splitting();
+        
+ const target = document.querySelector('#target');
+const results = Splitting({ target: target, by: 'chars' });
+
+
+    </script>
+
+</html>

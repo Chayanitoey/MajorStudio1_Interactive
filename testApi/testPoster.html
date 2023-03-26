@@ -1,0 +1,220 @@
+<html>
+    <head>
+        
+        
+<link rel="stylesheet" href="test.scss" type="text/css" />    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/CustomBounce3.min.js"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/CustomEase3.min.js"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/GSDevTools3.min.js"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/SplitText3.min.js"></script>
+</head>
+    <body>
+        <div class="stage">
+    <svg class="svg" viewBox="0 0 716 1008" xmlns="http://www.w3.org/2000/svg">
+        <rect class="dark-patch" width="100" height="150" x="616" fill="#010005" />
+        <g class="square-frame">
+            <g class="square">
+                <rect class="square__large" width="868" height="868" fill="#010005" />
+                <rect class="square__small" x="303" y="303" width="262" height="262" fill="#F68513" />
+                <circle class="ball" cx="405" cy="463" r="103" fill="#010005" />
+            </g>
+        </g>
+    </svg>
+    <h1 class="band">firehose</h1>
+    <div class="details">
+        <p class="date"><span>friday</span><span>december 13 1991</span><span>7 pm start</span></p>
+        <p class="location"><span>at the seahawk center</span><span>harbor college / 1111 figueroa place</span><span>wilmington, california</span></p>
+        <p class="support"><span>with babyland</span><span>sense field</span><span>spinning ceilings</span></p>
+    </div>
+</div>
+    </body>
+    <script>
+        console.clear();
+
+select = e => document.querySelector(e);
+selectAll = e => document.querySelectorAll(e);
+
+const stage = select('.stage');
+const square = select('.square');
+const squareFrame = select('.square__frame');
+const global = gsap.timeline({ delay: 0.5 });
+const loopTime = 16;
+const ballDuration = loopTime/8;
+const introRotTime = 1.3;
+const introRotDelay = 0.5;
+const squareDelay = introRotTime+introRotDelay;
+const bandST = new SplitText('.band', {type:"chars", charsClass:"bandChar", position: "absolute" }); 
+
+CustomBounce.create("ballBounce", { strength: 0.5 });
+
+const constEase = CustomEase.create("custom", 
+    // start
+    // start handle
+                                    
+    // handle 1.1
+    // point 1
+    // handle 1.2
+                                    
+    // etc…
+                                    
+   `M0,0,
+    C0.1,0.025,
+
+    0.125,0.225,
+    0.25,0.25,
+    0.375,0.275,
+
+    0.375,0.475,
+    0.5,0.5,
+    0.625,0.525,
+
+    0.625,0.725,
+    0.75,0.75,
+    0.875,0.775,
+
+    0.875,0.975
+    ,1,1`);
+
+function introAnimation() {
+    let tl = gsap.timeline();
+    
+    tl.from('.square__large', {
+        scaleX: 0,
+        duration: 2,
+        ease: 'power4.inOut',
+        transformOrigin: "right center"
+    }, 0)
+    .to('.square-frame', { 
+        rotation: 16,
+        duration: introRotTime,
+        ease: CustomEase.create("custom", "M0,0,C0.234,0.528,0.524,0.828,1,1")
+    }, introRotDelay)
+    .from('.square__small', {
+        scaleX: 0,
+        duration: 2,
+        ease: 'power4',
+        transformOrigin: "right center"
+    }, 1.1)
+    .set(['.ball', '.dark-patch'], { visibility: 'visible' }, 1.3)
+    .fromTo('.ball', {
+        x: -206,
+    }, {
+        x: 58,
+        ease: 'ballBounce',
+        duration: 2
+    }, 1.3)
+    
+    return tl;
+}
+
+function loopSquare() {
+    let tl = gsap.timeline( {
+        repeat: -1
+    });
+    tl.to(square, { 
+        duration: loopTime, 
+        ease: constEase, 
+        rotation: "+=360",
+        transformOrigin: "center center"
+    })
+    return tl
+}
+
+function loopBall() {
+    let tl = gsap.timeline({
+        repeat: -1,
+        repeatDelay: ballDuration,
+        defaults: {
+           ease: 'ballBounce',
+            duration: ballDuration 
+        }
+    });
+    
+    tl.to('.ball', {
+        y: -58
+    })
+    .to('.ball', {
+        x: 0
+    }, loopTime/4)
+    .to('.ball', {
+        y: 0
+    }, loopTime/2)
+    .to('.ball', {
+        x: 58
+    }, loopTime*0.75)
+    
+    return tl;
+}
+
+function animInContent() {
+    let tl = gsap.timeline({
+        defaults: {
+            ease: 'power2',
+            duration: 2
+        }
+    });
+    
+    tl.from('.bandChar', {
+        y: -120,
+        stagger: 0.05
+    })
+    .from('span', {
+        alpha: 0,
+        y: 40,
+        stagger: 0.1,
+    }, 0.8);
+    
+    return tl;
+}
+
+function animate() {
+    
+    gsap.set(stage, { 
+        autoAlpha: 1
+    });
+    gsap.set('.square-frame', { 
+        transformOrigin: "center center",
+        x: -141,
+        y: -217
+    });
+    
+    global.add(introAnimation())
+        .add(animInContent(), 1.5)
+        .add(loopSquare(), squareDelay)
+        .add(loopBall(), 4.8);
+}
+
+function resize() {
+	let vh = window.innerHeight;
+	let sh = stage.offsetHeight;
+	let scaleFactor = vh/sh;
+	if(scaleFactor<1) {
+		gsap.set(stage, { scale: scaleFactor });
+	}
+	else {
+        gsap.set(stage, { scale: 1 });
+    }
+}
+
+function init() {
+    resize();
+    animate();
+    
+    stage.onclick = () => {
+        global.restart();
+    }
+}
+
+window.onresize = resize;
+
+window.onload = () => {
+	init();
+    // GSDevTools.create();
+};
+        
+        
+        
+        
+    </script>
+</html>

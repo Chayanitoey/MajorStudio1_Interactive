@@ -1,0 +1,166 @@
+<html>
+      <head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.0.0/d3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.0.0/d3.min.js"></script>
+
+  </head>
+
+<body>
+		<div class='container'></div>
+</body>
+<script>
+
+// const LEN = 100;
+// const arr = [];
+// for (let i=0; i < LEN; i++) {
+//   arr.push(1);
+// }
+//   console.log(arr)
+  
+
+// //create an svg with width and height
+// const svg = d3.select('#chart')
+// 		.append('svg')
+// 		.attr("width", 1920)
+// 		.attr("height", 1080)
+
+
+// svg.selectAll("rect")
+// 			.data(arr)
+// 			.enter().append("rect")
+// 			.attr("class","square")
+// 			.attr('x',(d,i) => d * i)
+// 			.attr('y',  (d,i) => d * i)
+// 			.attr("width", 2)
+// 			.attr("height", 2)
+// // 			.attr('r', 1)
+// // 			.attr('fill', function(d){return d < percentNumber ? twitterFillActive : twitterFill;})
+// 			.style('stroke', 'black');
+
+
+// function getRandomInt(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+// }
+
+
+
+
+        //update the circle * remove the old one*
+        
+        // d3.select("#the_SVG_ID").remove();
+        
+      //  const t = d3.transition()
+		    // .duration(3000)
+		    // .ease(d3.easeLinear);
+		    
+//   var transit = d3.select(".container")
+        //   .transition()
+        //   .duration(650);
+let w = window.innerWidth;
+let h = window.innerHeight;
+
+        var svg1 = d3
+		  .select('.container')
+		  .append('svg')
+		  .attr('x', 70)
+			.attr('y', 200 )
+			.attr("width", w*2)
+		 	.attr("height", h*2);
+		
+		var group = svg1
+		    .append('g')
+		    .attr("id","the_SVG_ID")
+		    .attr('transform', 'translate(1000,1000)')
+		    .attr("width", w)
+		    .attr("height", h);
+		    
+      
+        //   .style("background-color", "red");
+	  
+		   
+             //.attr("x", 0 )
+             //.attr("y", 400 );
+        
+      
+		 //adding text under the circle
+		    
+// 		 var txt = group
+// 		            .append("text")
+// 		            .attr("id","circle_text")
+//                 	// .attr("x", (w/5))
+//                 	// .attr("y", 0 )
+//                 	.attr("dx", 560)
+//                 	.attr("dy", -350)
+//                 	.attr("width", 20)
+// 		            .attr("height", 300)
+// 		          //	.text(" In "+ data.Year+ ",  "+ data.Country + " has generated "+  data.Average_waste_per_capita + "Kg of waste per capita." )
+// 		            .style('fill', 'rgba(250, 250, 250, 1)');
+	
+	     //making dots appearing ** noting on the rad value if we want the area to be bigger add more to Math.random()
+		
+		
+			// setting radius size of the circle
+		   
+		    
+		    
+		for ( let i = 0; i < 472547; i++) {
+		  
+		  var rad = Math.sqrt(~~(Math.random() * 1000 * 1000)),
+		        angle = Math.random() * Math.PI * 2,
+		        posx = Math.cos(angle),
+		        posy = Math.sin(angle);
+
+		   
+		    
+		  //  var c2 = group
+		  //      .append('circle')
+		  //      .attr('id', 'cir')
+		  //      .attr('cx', posx * rad)
+		  //      .attr('cy', posy * rad)
+		  //      .attr('r', 2)
+		  //      .style('fill', 'rgba(89, 245, 255, 1)')
+		  //      .style('opacity', 0.6)
+		 
+		    var c2 = group
+		        .append('rect')
+		        .attr('id', 'rect')
+		        .attr('x', posx * rad)
+		        .attr('y', posy * rad)
+		        .attr('width', 2)
+		        .attr('height', 2)
+		        .style('fill', 'rgb(255, 195, 40)')
+		      //  .style('opacity', 0.6)
+		        
+		        
+		        
+		        
+		             //Our new hover effects
+			     //.on('mouseover', function(d, i) { d3.select(".infobox")
+			     //.style('visibility', 'visible');}
+			     //)
+			     //.on('mouseout', function(d, i){ d3.select(".infobox")
+			     //.style('visibility', 'hidden')})
+			     // ;
+
+		       
+      
+		 }
+
+
+		
+		var c1 = group
+		        .append('rect')
+		        .attr('id', 'rect1')
+		        .attr('x', posx * rad)
+		        .attr('y', posy * rad)
+		        .attr('width', 2)
+		        .attr('height', 2)
+		        .style('fill', 'rgba(26, 25, 25, 1)')
+
+
+
+</script>
+
+</html>

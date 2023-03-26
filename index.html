@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <script src="https://d3js.org/d3.v4.js"></script>
+      <script src="https://d3js.org/d3.v7.js"></script>
+      
+    <script src="https://unpkg.com/gsap@1.14.1/src/uncompressed/TweenMax.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.min.js"></script>
+    
+    <!--using p5.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+
+
+
+
+   <link rel="stylesheet" href="style.css" type="text/css" />
+    </head>
+    <body>
+       <div class="header">
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+      </div>
+       <div class ="top-nav">
+         <img src ="assets/helpsign.svg" id="help"/>
+      </div>
+      
+       <!--content on left side-->
+
+       <div id= "contentLeft"> 
+       <h1>The World & You</h1>
+    
+       
+       <!--<span class="number">1</span>-->
+       <div class = "textIntro"> 
+       <b id = "population_count">0</b>
+       <b style="font-size: 30px;"> babies have been born to this world</b>
+       <br>
+       <b style="font-size:30px;"> in the last </b>
+       <span id="minutes"></span> 
+        <span id="seconds"></span> 
+       </div>
+        <p class="textIntro">
+        Suddenly, you might feel small based on the fact that  there are 259 births per minute*... But have you ever wondered how many people in this world have experienced similar things or come from the same background as you? This project aims to give you a glimpse of that knowledge based on the official world census data from the UN. 
+       </p>
+       
+       <p id ="fact">* According to <a href="#">UN</a>, The 2021 average of 18.1 births per 1,000 total population equates to approximately 4.3 births per second or about 259 births per minute for the world.</p>
+       
+       </div>
+       
+       <!--dropdown-->
+       <!--for country list dropdown-->
+        <div class="px-app px-dropdown">
+              <input id="country_px-dropdown-value" type="hidden">
+              <div class="px-dropdown-input">
+                <input type="text" placeholder="Select Country">
+                <i class='bx bx-chevron-down'></i>
+              </div>
+              <div id="countryList">
+              </div>
+        </div>
+        <!--for year of birth field-->
+        <div class="px-app px-dropdown2">
+              <div class="px-dropdown-input">
+                <input id="yearInput" type="text" placeholder="Year Of Birth" required minlength="4" maxlength="4" value ="">
+              </div>
+        </div>
+        <!--for gender identity dropdown-->
+        <div class="px-app px-dropdown3">
+              <input id="gender_px-dropdown-value" type="hidden">
+              <div class="px-dropdown-input">
+                <input type="text" placeholder="Gender Identity">
+                <i class='bx bx-chevron-down'></i>
+              </div>
+              <div id="genderList">
+                <p genderId='female'>Female</p>
+                <p genderId='male'>Male</p>
+                <p genderId='nonBinary'>Non-Binary</p>
+              </div>
+        </div>
+        <!--for rural VS urban-->
+        <div class="px-app px-dropdown4">
+              <input id="urbanRural_px-dropdown-value" type="hidden">
+              <div class="px-dropdown-input">
+                <input type="text" placeholder="Are you residing in Rural or Urban Area?">
+                <i class='bx bx-chevron-down'></i>
+              </div>
+              <div id="urbanRuralList">
+                <p urbanRural_id='urban'>Urban</p>
+                <p urbanRural_id='rural'>Rural</p>
+              </div>
+        </div>
+        <button id ="getResultButton" type = "button">
+            <a href = "#trigger1"> Get Result </a> </button>
+        
+       
+       <!--adding the circles-->
+       
+      <!--<svg width="1200" height="300">-->
+      <!--  <g id="chart" transform="translate(50, 0)">-->
+      <!--  </g>-->
+      <!--</svg>-->
+      
+       <!--<p id="pop_atBirth"></p>-->
+       <p id = "fertilityRate"></p>
+       <p id = "ageDependency"></p>
+       <p id = "mortalityRate"></p>
+
+      <div id="trigger1" class="spacer s0"></div>
+      <!--<div id="animate1" class="box">-->
+          
+      <svg id ="animate1" width="1300" height="1080">
+          <g id="chart">
+        <!--<g id="chart" transform="translate(50, 0)">-->
+        </g>
+      </svg>
+      <div id="firstFact"></div>
+      <p id="scrollText">Scroll for more</p>
+      <div class="box">
+          	<span></span>
+        	<span></span>
+         	<span></span>
+       </div>
+      
+   
+      
+<div id = "poster_section">
+     <div id="mySidenav" class="sidenav">
+      <!--<ul> -->
+      <li id = 'firstButton'>About</li>
+      <li id ='siblingButton' >Siblings</li>
+      <li id = 'ageDependencyButton'>Next 20 Years</li>
+      <li id = 'timeLeftButton'>Time Left</li>
+      <!--</ul>-->
+    </div>
+    
+    <main>
+    </main>
+    <!--<p id="pop_atBirth"></p>-->
+    <p id = "desc"></p>
+    <p id ="icon">
+         <a href="#" class="button" id="btn-download" download="my-file-name.png"> <img src ="assets/download.svg" id="download"/></a>
+         <a href="#" class="button" id="btn-share"><img src ="assets/link.svg" id="link"/></a>
+         <img src ="assets/share.svg" id="share"/>
+
+    </p>
+    
+  
+</div>
+     <script src="sketch.js"></script>
+     <script type="module" src="./app.js"></script>
+
+        
+        
+    </body>
+
+
+</html>
